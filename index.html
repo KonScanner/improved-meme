@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <title>PyScript Testing</title>
+    </head>
+
+    <body>
+        <py-env> - pandas - requests - matplotlib </py-env>
+        <py-script output="plot">
+            import requests
+            import matplotlib.pyplot as plt
+            import pandas as pd
+
+
+            base_mpl_style_url = "https://raw.githubusercontent.com/KonScanner/mpl-style/main/styles/base.mplstyle"
+            plt.style.use(base_mpl_style_url)
+            plt.style.use("dark_background")
+
+            r = requests.get("https://node-api.flipsidecrypto.com/api/v2/queries/86575bdf-b4c6-401f-b731-60e6b7c5de34/data/latest")
+            df = pd.DataFrame(r.json())
+            df["DATE"] = pd.to_datetime(df["DATE"])
+            succ = df[df["LABEL"] == "Successful"]
+            fail = df[df["LABEL"] == "Failed"]
+            fix, ax = plt.subplots(figsize=(12,8))
+            ax.plot(succ["DATE"],succ["COUNT_TRANSACTIONS"],label="Successful Transactions")
+            ax.plot(fail["DATE"],fail["COUNT_TRANSACTIONS"],label="Failed Transactions")
+            ax.set_xlabel("Date")
+            ax.set_ylabel("Count")
+            ax.set_title("Number of transactions by TX_STATUS")
+            ax.legend()
+            
+            fig
+        </py-script>
+    </body>
+</html>
