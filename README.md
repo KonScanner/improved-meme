@@ -1,2 +1,4 @@
 # improved-meme
-py-right is cool? (Name comes from Github auto-suggestion)
+[PyScript](https://pyscript.net/) is cool? 
+
+P.S. Name comes from Github auto-suggestion
